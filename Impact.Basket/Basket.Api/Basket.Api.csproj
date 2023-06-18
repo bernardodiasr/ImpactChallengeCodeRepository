@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Basket.Repositories\Basket.Repositories.csproj" />
+    <ProjectReference Include="..\Impact.Connectores\Impact.Connectores.csproj" />
     <ProjectReference Include="..\Impact.Core\Impact.Core.csproj" />
   </ItemGroup>
 

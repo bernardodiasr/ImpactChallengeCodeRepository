@@ -1,6 +1,7 @@
 using Basket.Api.Security;
 using Basket.Contracts;
 using Basket.Repositories.Repositories;
+using Impact.Connectores;
 using Impact.Core.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Add the Repository service to the services container
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+var config = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+// Register the CodeChallengeConnectorOptions class with the configuration values
+builder.Services.Configure<CodeChallengeConnectorOptions>(config.GetSection("ImpactCodeChallengeUrl"));
+
+builder.Services.AddScoped<ICodeChallengeConnector, CodeChallengeConnector>();
 
 builder.Services.AddHttpClient();
 
