@@ -56,37 +56,124 @@ namespace Basket.Repositories.Repositories
 
         public Models.Basket AddItemToBasket(Guid basketId, BasketItem b)
         {
-            throw new NotImplementedException();
+            using (var context = new BasketContext())
+            {
+                var basket = context.Baskets.Where(x => x.BasketId == basketId).Include(i => i.Items).FirstOrDefault();
+
+                if (basket == null)
+                    return null;
+
+                b.BasketItemId = Guid.NewGuid();
+                b.TotalPrice = b.Quantity * b.ProductUnitPrice;
+
+                basket.TotalAmount += b.TotalPrice;
+
+                basket.Items.Add(b);
+
+                context.Update(basket);
+                context.SaveChanges();
+
+                return basket;
+            }
         }
 
         public Models.Basket CreateBasket(Models.Basket b)
         {
-            throw new NotImplementedException();
+            using (var context = new BasketContext())
+            {
+                b.BasketId = Guid.NewGuid();
+
+                //Apply some business logic
+                b.Items.ToList().ForEach(x =>
+                {
+                    x.BasketItemId = Guid.NewGuid();
+                    x.TotalPrice = x.Quantity * x.ProductUnitPrice;
+                });
+
+                b.TotalAmount = b.Items.Sum(x => x.TotalPrice);
+
+                context.Baskets.Add(b);
+                context.SaveChanges();
+
+                return b;
+            }
         }
 
         public IList<Models.Basket> GetAllBaskets()
         {
-            throw new NotImplementedException();
+            using (var context = new BasketContext())
+            {
+                var res = context.Baskets.Include(c => c.Items).ToList();
+
+                return res;
+            }
         }
 
         public Models.Basket? GetBasketById(Guid basketId)
         {
-            throw new NotImplementedException();
+            using (var context = new BasketContext())
+            {
+                return context.Baskets.Where(x => x.BasketId == basketId).Include(i => i.Items).FirstOrDefault();
+            }
         }
 
         public bool RemoveBasket(Guid basketId)
         {
-            throw new NotImplementedException();
+            using (var context = new BasketContext())
+            {
+                var basket = context.Baskets.FirstOrDefault(x => x.BasketId == basketId);
+
+                if (basket == null)
+                    return false;
+
+                context.Remove(basket);
+                context.SaveChanges();
+
+                return true;
+            }
         }
 
         public Models.Basket? RemoveItemFromBasket(Guid basketId, BasketItem b)
         {
-            throw new NotImplementedException();
+            using (var context = new BasketContext())
+            {
+                var basket = context.Baskets.Where(x => x.BasketId == basketId).Include(i => i.Items).FirstOrDefault();
+
+                if (basket == null)
+                    return null;
+
+                basket.Items = basket.Items.Where(x => x.BasketItemId != b.BasketItemId).ToList();
+
+                basket.TotalAmount -= b.TotalPrice;
+
+                context.Update(basket);
+                context.SaveChanges();
+
+                return basket;
+            }
         }
 
         public BasketItem? UpdateBasketItem(BasketItem b)
         {
-            throw new NotImplementedException();
+            using (var context = new BasketContext())
+            {
+                var basketItem = context.BasketItems.FirstOrDefault(x => x.BasketItemId == b.BasketItemId);
+
+                if (basketItem == null)
+                    return null;
+
+                basketItem.ProductSize = b.ProductSize;
+                basketItem.ProductId = b.ProductId;
+                basketItem.ProductName = b.ProductName;
+                basketItem.Quantity = b.Quantity;
+                basketItem.ProductUnitPrice = b.ProductUnitPrice;
+                basketItem.TotalPrice = b.Quantity * b.ProductUnitPrice;
+
+                context.BasketItems.Update(basketItem);
+                context.SaveChanges();
+
+                return basketItem;
+            }
         }
     }
 }
