@@ -111,11 +111,11 @@ namespace Impact.Connectores
 
             var restRequest = new RestRequest(urlComplete, Method.Post) { RequestFormat = DataFormat.Json };
 
-            //restRequest.AddBody(JsonConvert.SerializeObject(order), "application/json");
+            restRequest.AddBody(JsonConvert.SerializeObject(order), "application/json");
 
-            restRequest.AddJsonBody(order);
+            //restRequest.AddJsonBody(order);
 
-            var restResponse = await restClient.ExecuteGetAsync<Order>(restRequest)
+            var restResponse = await restClient.ExecutePostAsync<Order>(restRequest)
               .ConfigureAwait(false);
 
             if (restResponse.StatusCode == HttpStatusCode.OK)
