@@ -1,7 +1,10 @@
+using Impact.Core.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -12,9 +15,11 @@ namespace Basket.Api.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IIdentityProvider _identityProvider;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IIdentityProvider identityProvider)
         {
+            _identityProvider = identityProvider;
             _logger = logger;
         }
 
