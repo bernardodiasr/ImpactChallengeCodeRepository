@@ -1,3 +1,4 @@
+using Basket.Contracts;
 using Impact.Core.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,14 @@ namespace Basket.Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IIdentityProvider _identityProvider;
+        private readonly IBasketRepository _basketRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IIdentityProvider identityProvider)
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IIdentityProvider identityProvider, IBasketRepository basketRepository)
         {
             _identityProvider = identityProvider;
             _logger = logger;
+            _basketRepository = basketRepository;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]

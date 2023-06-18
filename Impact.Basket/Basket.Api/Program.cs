@@ -1,4 +1,6 @@
 using Basket.Api.Security;
+using Basket.Contracts;
+using Basket.Repositories.Repositories;
 using Impact.Core.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -6,6 +8,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+//Add the Repository service to the services container
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 builder.Services.AddHttpClient();
 
