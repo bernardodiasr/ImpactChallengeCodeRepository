@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.Api", "Basket.Api\Ba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Impact.Core", "Impact.Core\Impact.Core.csproj", "{86EB15FB-388F-4994-BAC2-5754E5A5C7A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket", "Basket\Basket.csproj", "{C50D018B-CD68-4269-95EF-27CDB3E3DD91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{86EB15FB-388F-4994-BAC2-5754E5A5C7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86EB15FB-388F-4994-BAC2-5754E5A5C7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86EB15FB-388F-4994-BAC2-5754E5A5C7A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C50D018B-CD68-4269-95EF-27CDB3E3DD91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C50D018B-CD68-4269-95EF-27CDB3E3DD91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C50D018B-CD68-4269-95EF-27CDB3E3DD91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C50D018B-CD68-4269-95EF-27CDB3E3DD91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
